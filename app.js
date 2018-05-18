@@ -14,24 +14,26 @@ producer.connect(err => { console.log(err) });
 
 io.on('connection', client => {
   console.log('A client connected.');
-  producer.on('ready', () => { 
-    console.log('producer ready')
-    client.on('current_loc', data => {
-      try {
-        console.log(data);
-        producer.produce('car_loc', null, new Buffer(data), null, Date.now);
-      } catch(e) {
-        console.error('A problem occurred when sending our message.');
-        console.error(e);
-      };
-    });
-    client.on('disconnect', () => {console.log("A driver disconnected,")});
-  });
-  producer.on('event.error', function(err) {
-    console.error('Error from producer');
-    console.error(err);
-  })
 });
+
+producer.on('ready', () => { 
+  console.log('producer ready')
+  client.on('current_loc', data => {
+    try {
+      console.log(data);
+      producer.produce('car_loc', null, new Buffer(data), null, Date.now);
+    } catch(e) {
+      console.error('A problem occurred when sending our message.');
+      console.error(e);
+    };
+  });
+  client.on('disconnect', () => {console.log("A driver disconnected,")});
+});
+
+producer.on('event.error', function(err) {
+  console.error('Error from producer');
+  console.error(err);
+})
 
 server.listen(port);
 console.log(`Listening on port ${port}.`);
