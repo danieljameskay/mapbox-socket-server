@@ -15,6 +15,7 @@ producer.connect(err => { console.log(err) });
 io.on('connection', client => {
   console.log('A client connected.');
   producer.on('ready', () => { 
+    console.log('producer ready')
     client.on('current_loc', data => {
       try {
         console.log(data);
