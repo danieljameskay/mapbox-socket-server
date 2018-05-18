@@ -45,3 +45,7 @@ io.on('connection', client => {
     });
   }
 });
+
+io.on('disconnect', () => {
+  console.log('A client has disconnected.')
+});
