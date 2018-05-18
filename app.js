@@ -37,7 +37,7 @@ io.on('connection', client => {
     client.on('current_loc', data => {
       try {
         console.log(data);
-        const p = producer.produce('car_loc', 1, new Buffer(data), "1", Date.now(), null);
+        const p = producer.produce('car_loc', null ,new Buffer(data), "1", Date.now(), null);
         if(p) {
           console.log('Message saved to Kafka.')
         }
