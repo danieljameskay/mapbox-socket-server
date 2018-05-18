@@ -6,7 +6,7 @@ require('dotenv').config();
 const port = process.env.PORT || 1337;
 
 const producer = new kafka.Producer({
-  'metadata.broker.list' : process.env.KAFKA_BROKER_URL,
+  'metadata.broker.list' : 'http://9d1ec873.ngrok.io',
   'dr_cb': true
 })
 
