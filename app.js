@@ -9,7 +9,7 @@ const port = process.env.PORT || 1337;
 let kafkaReady = false;
 
 const producer = new kafka.Producer({
-  'metadata.broker.list' : process.env.KAFKA_BROKER_URL,
+  'metadata.broker.list' : process.env.KAFKA_BROKER_URL_LOCAL,
   'dr_cb': true
 });
 
@@ -37,8 +37,10 @@ io.on('connection', client => {
     client.on('current_loc', data => {
       try {
         console.log(data);
-        const p = producer.produce('car_loc', null, new Buffer(data), "1", Date.now(), null);
-        console.log(p)
+        const p = producer.produce('car_loc', 1, new Buffer(data), "1", Date.now(), null);
+        if(p) {
+          console.log('Message saved to Kafka.')
+        }
       } catch(e) {
         console.error('A problem occurred when sending our message.');
         console.error(e);
