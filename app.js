@@ -37,7 +37,8 @@ io.on('connection', client => {
     client.on('current_loc', data => {
       try {
         console.log(data);
-        producer.produce('car_loc', null, new Buffer(data), "1", Date.now(), null);
+        const p = producer.produce('car_loc', null, new Buffer(data), "1", Date.now(), null);
+        console.log(p)
       } catch(e) {
         console.error('A problem occurred when sending our message.');
         console.error(e);
