@@ -9,7 +9,7 @@ const port = process.env.PORT || 1337;
 let kafkaReady = false;
 
 const producer = new kafka.Producer({
-  'metadata.broker.list' : process.env.KAFKA_BROKER_URL_LOCAL,
+  'metadata.broker.list' : process.env.KAFKA_BROKER_URL,
   'dr_cb': true
 });
 
