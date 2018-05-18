@@ -13,9 +13,11 @@ const producer = new kafka.Producer({
 producer.connect(err => { console.log(err) });
 
 io.on('connection', client => {
+  console.log('A client connected.');
   producer.on('ready', () => { 
     client.on('current_loc', data => {
       try {
+        console.log(data);
         producer.produce('car_loc', null, new Buffer(data), null, Date.now);
       } catch(e) {
         console.error('A problem occurred when sending our message.');
